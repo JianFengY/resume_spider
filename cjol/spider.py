@@ -128,7 +128,7 @@ def get_resume_info_by_id(resume_id):
 
 if __name__ == '__main__':
     url = "http://newrms.cjol.com/SearchEngine/List?fn=d"
-    with open('resume.json', 'a', encoding='UTF-8') as f:
+    with open('resume2.json', 'a', encoding='UTF-8') as f:
         for page_num in range(1, 101):
             from_data = {
                 "Keyword": "Java",
@@ -143,6 +143,9 @@ if __name__ == '__main__':
                 "PageNo": page_num
             }
             html = get_html(url, from_data)
+            if '招聘管理系统登录' in html:
+                print('Cookies已失效，请更换cookies！')
+                break
             for resume_id in get_resume_ids(html):
                 print('正在获取简历：', resume_id)
                 resume_info = get_resume_info_by_id(resume_id)
